@@ -37,15 +37,20 @@ header{
 .nav-container a{
     padding:5px;
     color:grey;
-    font-size: large;
+    font-size: medium;
+}
+.careers{
+    color:white;
+    border-radius: 10px;
+    padding:10px;
+    background-color: gold;
 }
 .nav-container a:hover,
 .nav-container a.active{
     background-color: aliceblue;
     transition: 0s none;
-    letter-spacing: 0px;
     text-decoration:underline;
-    color:goldenrod;
+    color:black;
 }
 .social-links{
     width:20%;
@@ -59,11 +64,27 @@ header{
 .social-links img{
     border-radius:50%;
     border:1px solid blue;
-    width:50px;
-    padding:5px;
+    width:30px;
+    padding:1px;
+    filter:grayscale(100%);
 }
 .social-links img:hover{
-    background-color:goldenrod;
+    filter:none;
 }
 
+
+/* BODY */
+#home{
+    background-image:url('https://i.ibb.co/ZX840Lh/Coming-Soon-Website-in-White-Orange-Chic-Photocentric-Frames-Style-2.png');
+    background-repeat:no-repeat;
+    background-attachement:fixed;
+    background-size: 100% 100%;
+}
+#home > div{
+    background: rgba(30, 144, 150, 0.5);
+    padding:20px;
+}
+#home h2{
+    color:white;
+}
 
