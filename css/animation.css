@@ -81,13 +81,19 @@ section .text-container {
 section .text-container .text-box {
   margin: 20px;
   padding: 20px;
-  background: #00c2cb;
+  /* background: #00c2cb; */
+  background: rgba(30, 144, 150, 0.5);
 }
 section .text-container .text-box h3 {
   font-size: 30px;
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 10px;
+}
+.text-box p{
+  font-size: x-large;
+  color:white;
+  margin:15px;
 }
 
 @media (max-width: 900px) {

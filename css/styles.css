@@ -88,3 +88,11 @@ header{
     color:white;
 }
 
+#about{
+    background-image:url('https://i.ibb.co/LpqRNXx/eryn-removebg-preview-1.png');
+    background-repeat:no-repeat;
+    background-size: auto 100%;
+}
+#about h2{
+    color:white;
+}
