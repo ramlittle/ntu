@@ -90,10 +90,15 @@ section .text-container .text-box h3 {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+.text-box h3{
+  color:black;
+}
 .text-box p{
   font-size: x-large;
   color:white;
   margin:15px;
+  text-shadow:1px 1px black;
+  text-align:center;
 }
 
 @media (max-width: 900px) {

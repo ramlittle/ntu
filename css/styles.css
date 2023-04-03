@@ -93,6 +93,29 @@ header{
     background-repeat:no-repeat;
     background-size: auto 100%;
 }
-#about h2{
-    color:white;
+
+#foundation{
+    background-image: url('https://i.ibb.co/tCp6mnk/joan-removebg-preview.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+#about h2,
+#foundation h2,
+#services h2{
+    color:gold;
+    text-shadow:1px 1px black;
+}
+/* FOOTER */
+
+footer{
+    height: 10rem;
+    background-color:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    padding:1rem;
+}
+footer > div{
+    text-align:center;
 }
