@@ -27,6 +27,9 @@ header{
     font-size:small;
     padding-left: 10px;
 }
+.menu-button-container{
+    display:none;
+}
 .nav-container{
     width:50%;
     display:flex;

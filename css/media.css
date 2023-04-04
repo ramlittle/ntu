@@ -1,0 +1,50 @@
+@media screen and (max-width:767px){
+    /* HEADER */
+    .logo-container{
+        width:80%;
+    }
+    .nav-container,header .social-links{
+        display:none;
+    }
+    .menu-button-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        width:20%;
+    }
+    .menu-button-container > button{
+        padding:1.5rem;
+        color:black;
+        background-color: lightgrey;
+    }
+    /* BODY */
+    #home,#about,#foundation{
+        background-size: cover;
+    }
+    #home section{
+        flex-direction:column;
+        height: auto;
+    }
+    #home div{
+        padding:1rem;
+        margin:1rem;
+    }
+    #home h2,
+    #about h2,
+    #services h2,
+    #foundation h2{
+        font-size: xx-large;
+    }
+    #about p,
+    #services p,
+    #foundation p{
+        font-size: large;
+    }
+    footer{
+        flex-direction: column;
+        height:15rem;
+    }
+    .social-links{
+        width:100%;
+    }
+}
