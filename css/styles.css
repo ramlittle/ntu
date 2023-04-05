@@ -129,7 +129,12 @@ header{
     background-repeat:no-repeat;
     background-size: auto 100%;
 }
-
+#outsource-us{
+    background-image:url('https://i.ibb.co/cJGjDxx/mark-and-emy-removebg-preview-2.png');
+    background-repeat:no-repeat;
+    background-size: auto 100%;
+    background-color: #333;
+}
 #foundation{
     background-image: url('https://i.ibb.co/tCp6mnk/joan-removebg-preview.png');
     background-repeat: no-repeat;
@@ -143,9 +148,17 @@ header{
 }
 #about h2,
 #foundation h2,
-#services h2{
+#services h2,
+#outsource-us h2{
     color:gold;
     text-shadow:1px 1px black;
+}
+#outsource-us a{
+    color: gold;
+    text-shadow:1px 1px black;
+}
+#outsource-us a:hover{
+    color: black;
 }
 /* FOOTER */
 
