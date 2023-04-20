@@ -149,7 +149,8 @@ header{
 #about h2,
 #foundation h2,
 #services h2,
-#outsource-us h2{
+#outsource-us h2,
+#testimonials h2{
     color:gold;
     text-shadow:1px 1px black;
 }
@@ -160,8 +161,8 @@ header{
 #outsource-us a:hover{
     color: black;
 }
-/* FOOTER */
 
+/* FOOTER */
 footer{
     height: 10rem;
     background-color:black;
