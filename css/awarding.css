@@ -18,6 +18,13 @@ body > h2{
 .button-container{
     display:flex;
     justify-content:center;
+    align-items:center;
+}
+.button-container>button{
+    margin:0.25rem;
+}
+.button-container >a{
+    color:white;
 }
 .show-more-button{
     text-align:center;
@@ -30,7 +37,10 @@ body > h2{
     background-color:goldenrod;
     color:white;
 }
-
+.hide-button{
+    padding:0.5rem;
+    font-size:small;
+}
 .awarding-container{
     display:flex;
     flex-wrap:wrap;
@@ -41,10 +51,19 @@ body > h2{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    border:1px solid red;
     margin:1rem;
+}
+.awardings > h2,
+.awardings > h3{
+    color:white;
+    font-family: 'Ink Free';
+    margin:0.25rem;
+}
+.awardings:hover{
+    margin-bottom:10px;
 }
 .awardings img{
     width:25rem;
     height:20rem;
 }
+
