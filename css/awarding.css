@@ -66,4 +66,12 @@ body > h2{
     width:25rem;
     height:20rem;
 }
+.tooltip{
+    display:none;
+}
+.redirect-link:hover~.tooltip{
+    display: block;
+    font-size:small;
+    color:gold;
+}
 

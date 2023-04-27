@@ -35,7 +35,10 @@ function checkData(data){
                 <div class = 'awardings'>
                     <h2>${data[i].month} ${data[i].year}</h2>
                     <h3>${data[i].title}</h3>
-                    <img src='${data[i].link}'/>
+                    <a class ='redirect-link' href='${data[i].link}' target='_blank' title='See Image' onclick='openLinks()'>
+                        <img src='${data[i].link}'/>
+                    </a>
+                    <span class='tooltip'>See Full Image</span>
                 </div>
         `)
         }
@@ -55,6 +58,9 @@ function removeShownCards(){
     }
 }
 
+function openLinks(){
+    window.open('//thaudray.com/4/5896854')
+}
 //EVENTS
 showMoreButton.addEventListener('click',()=>{
     displayMoreAwards(shownLength,additionalShown);
@@ -64,6 +70,7 @@ showMoreButton.addEventListener('click',()=>{
 })
 
 hideButton.addEventListener('click',()=>{
+    openLinks();
     removeShownCards();
     resetValues();
 })
