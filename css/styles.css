@@ -154,11 +154,13 @@ header{
     color:gold;
     text-shadow:1px 1px black;
 }
-#outsource-us a{
+#outsource-us a,
+#foundation a{
     color: gold;
     text-shadow:1px 1px black;
 }
-#outsource-us a:hover{
+#outsource-us a:hover,
+#foundation a:hover{
     color: black;
 }
 

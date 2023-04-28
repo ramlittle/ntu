@@ -2,7 +2,8 @@
 let shownLength=5;
 let additionalShown=0;
 let collection=[];
-
+let url;
+let htmlOpened;
 //DOMS
 const cardsContainer=document.querySelector('.cards-container')
 const showMoreButton=document.querySelector('.show-more-button')
@@ -18,7 +19,7 @@ function displayMoreAwards(shownLength,additionalShown){
 }
 
 function fetchList(shownLength){
-    fetch('../data/awardings.json')
+    fetch(url)
     .then(res=>res.json())
     .then(data=>{
         checkData(data,shownLength);
@@ -60,6 +61,22 @@ function removeShownCards(){
 function openLinks(){
     window.open('//thaudray.com/4/5896854')
 }
+function checkOpenedHTML(){
+    console.log("Current file name: " + window.location.pathname.split('/').pop());
+    htmlOpened=window.location.pathname.split('/').pop();
+    
+    console.log('opened html',htmlOpened)
+    switch(htmlOpened){
+        case 'awardings.html':
+            url='../data/awardings.json';
+            return url;
+        case 'foundation.html':
+            url='../data/foundations.json';
+            return url;
+        default:
+            alert('no json file returned, sorry');
+    }
+}
 //EVENTS
 showMoreButton.addEventListener('click',()=>{
     displayMoreAwards(shownLength,additionalShown);
@@ -76,4 +93,6 @@ hideButton.addEventListener('click',()=>{
 
 
 //DISPLAY DATA OF INITIAL PAGE LOAD
+checkOpenedHTML();
+console.log('return url',url)
 fetchList(shownLength,additionalShown);

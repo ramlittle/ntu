@@ -15,6 +15,11 @@ body > h2{
     font-family: 'Ink Free';
     font-size:xxx-large;
 }
+.logo{
+    width:5rem;
+    height:5rem;
+    border-radius:50%;
+}
 .button-container{
     display:flex;
     justify-content:center;
