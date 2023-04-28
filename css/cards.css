@@ -41,28 +41,28 @@ body > h2{
     padding:0.5rem;
     font-size:small;
 }
-.awarding-container{
+.cards-container{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
 }
-.awardings{
+.cards{
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     margin:1rem;
 }
-.awardings > h2,
-.awardings > h3{
+.cards > h2,
+.cards > h3{
     color:white;
     font-family: 'Ink Free';
     margin:0.25rem;
 }
-.awardings:hover{
+.cards:hover{
     margin-bottom:10px;
 }
-.awardings img{
+.cards img{
     width:25rem;
     height:20rem;
 }

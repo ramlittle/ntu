@@ -1,14 +1,13 @@
 // VARIABLES
 let shownLength=5;
 let additionalShown=0;
-let cards;
 let collection=[];
 
 //DOMS
-const awardingContainer=document.querySelector('.awarding-container')
+const cardsContainer=document.querySelector('.cards-container')
 const showMoreButton=document.querySelector('.show-more-button')
 const hideButton=document.querySelector('.hide-button')
-const awardings=document.querySelector('.awardings')
+const cards=document.querySelector('.cards')
 
 // FUNCTIONS
 function displayMoreAwards(shownLength,additionalShown){
@@ -31,8 +30,8 @@ function checkData(data){
         alert('no more data to show')
     }else{
         for(let i=additionalShown;i<shownLength;i++){
-            awardingContainer.insertAdjacentHTML('beforeend',`
-                <div class = 'awardings'>
+            cardsContainer.insertAdjacentHTML('beforeend',`
+                <div class = 'cards'>
                     <h2>${data[i].month} ${data[i].year}</h2>
                     <h3>${data[i].title}</h3>
                     <a class ='redirect-link' href='${data[i].link}' target='_blank' title='See Image' onclick='openLinks()'>
@@ -53,8 +52,8 @@ function resetValues(){
 
 function removeShownCards(){
     //while container has child nodes it will remove them one by one
-    while(awardingContainer.hasChildNodes()){
-        awardingContainer.removeChild(awardingContainer.firstChild)
+    while(cardsContainer.hasChildNodes()){
+        cardsContainer.removeChild(cardsContainer.firstChild)
     }
 }
 
