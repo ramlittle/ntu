@@ -27,7 +27,13 @@ header{
     align-items:center;
     color:black;
 }
-
+.hiring-container{
+    background-image:url('https://i.ibb.co/zG5FhFT/backgroundputo.png');
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    width:100%;
+    height:100vh;
+}
 #careers-container{
     background-color: #333;
     display:flex;
@@ -36,7 +42,7 @@ header{
 }
 .heading-container h2{
     color:gold;
-    font-size: xx-large;
+    font-size: xxx-large;
     text-align:center;
     margin:1rem;
 }
@@ -44,7 +50,7 @@ header{
     color:white;
     text-align:center;
     margin:0.5rem;
-    font-size: large;
+    font-size: x-large;
 }
 .content p a{
     color: gold;
