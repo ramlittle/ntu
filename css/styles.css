@@ -24,12 +24,12 @@ header{
     align-items:center;
 }
 .logo-container h1{
-    font-size:small;
+    font-size:large;
     padding-left: 10px;
 }
 .logo-container img{
-    width:2rem;
-    height:2rem;
+    width:4rem;
+    height:4rem;
 }
 .menu-button-container{
     display:none;
