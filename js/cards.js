@@ -1,5 +1,5 @@
 // VARIABLES
-let shownLength=5;
+let shownLength=0;
 let additionalShown=0;
 let collection=[];
 let url;
@@ -30,7 +30,7 @@ function checkData(data){
     if(shownLength>data.length){
         alert('no more data to show')
     }else{
-        for(let i=additionalShown;i<shownLength;i++){
+        for(let i=additionalShown;i<data.length;i++){
             cardsContainer.insertAdjacentHTML('beforeend',`
                 <div class = 'cards'>
                     <h2>${data[i].month} ${data[i].year}</h2>
@@ -72,6 +72,9 @@ function checkOpenedHTML(){
             return url;
         case 'foundation.html':
             url='../data/foundations.json';
+            return url;
+        case 'announcements.html':
+            url='../data/announcements.json';
             return url;
         default:
             alert('no json file returned, sorry');
