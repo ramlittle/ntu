@@ -1,0 +1,92 @@
+*{
+    padding:0;
+    margin:0;
+}
+img{
+    max-width:100%;
+    max-height:100%;
+}
+header{
+    width:100%;
+    display:flex;
+    background-color:aliceblue;
+    position:sticky;
+    top:0;
+}
+.menu-container a{
+    color: grey;
+    text-decoration:none;
+}
+.menu-container a:hover{
+    color:black;
+}
+.menu-container,header .social-links{
+    width:50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    color:black;
+}
+.hiring-container{
+    background-image:url('https://i.ibb.co/zG5FhFT/backgroundputo.png');
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    width:100%;
+    height:100vh;
+}
+#careers-container{
+    background-color: #333;
+    display:flex;
+    flex-direction:column;
+    flex-wrap;
+}
+.heading-container h2{
+    color:gold;
+    font-size: xxx-large;
+    text-align:center;
+    margin:1rem;
+}
+.heading-container h3, .content p{
+    color:white;
+    text-align:center;
+    margin:0.5rem;
+    font-size: x-large;
+}
+.content p a{
+    color: gold;
+    text-decoration:none;
+}
+.content p a:hover{
+    color: white;
+}
+.ntumap{
+    text-align:right;
+    background-image:url('https://i.ibb.co/zG5FhFT/backgroundputo.png');
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    width:100%;
+}
+.ntumap iframe{
+    height:30rem;
+    width:50rem;
+}
+
+.social-links{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    color:white;
+}
+.social-link h6,a{
+    padding:5px;
+}
+.social-links img{
+    border-radius:50%;
+    width:30px;
+    padding:1px;
+    filter:grayscale(100%);
+}
+.social-links img:hover{
+    filter:none;
+}
