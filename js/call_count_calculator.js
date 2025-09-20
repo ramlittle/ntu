@@ -1,3 +1,40 @@
+function exportToExcel() {
+  const table = document.getElementById('table-data');
+  const tableHTML = table.outerHTML;
+  const fileName = 'call_count_report.xls';
+  const dataType = 'application/vnd.ms-excel';
+
+  const downloadLink = document.createElement('a');
+  document.body.appendChild(downloadLink);
+
+  if (navigator.msSaveOrOpenBlob) {
+    // For IE
+    const blob = new Blob(['\ufeff', tableHTML], { type: dataType });
+    navigator.msSaveOrOpenBlob(blob, fileName);
+  } else {
+    // For other browsers
+    downloadLink.href = 'data:' + dataType + ', ' + encodeURIComponent(tableHTML);
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
+  document.body.removeChild(downloadLink);
+}
+
+function fillTableResult(result){
+  const tBodyData=document.querySelector("#tbody-data");
+  for(let i=0;i<result.length;i++){
+    const rowData=`<tr>
+      <td>${result[i].date}</td>
+      <td>${result[i].contacted_by}</td>
+      <td>${result[i].number_contacted}</td>
+      <td>${result[i].number_of_times}</td>
+    </tr>
+    `;
+    tBodyData.insertAdjacentHTML('beforeend', rowData);
+  }
+}
+
 function calculate() {
   let records = [];
   let initialResult = [];
@@ -6,7 +43,7 @@ function calculate() {
     .then(response => response.json())
     .then(data => {
       records = data;
-      // console.log('records', records);
+      
       let objectToInsert = {
         date: "",
         contacted_by: "",
@@ -15,7 +52,7 @@ function calculate() {
       };
       for (let i = 0; i < records.length; i++) {
         const dateToCheck = records[i].date_time.split(' ')[0];
-        const contactedBy = records[i].contacted_by;
+        const contactedBy = records[i].from;
         const numberToCheck = records[i].to;
         let counter = 0;
 
@@ -53,7 +90,7 @@ function calculate() {
         }
       }
       console.log('perDateResult',perDateResult);
+      fillTableResult(perDateResult);
     })
     .catch(error => console.error('Error:', error));  
-
 }

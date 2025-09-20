@@ -2,6 +2,22 @@
     <body>
         <div>
             <button onclick="calculate()">Calculate</button>
+            <h2>Output</h2>
+            
+            <button onclick="exportToExcel()">Export to Excel</button>
+            <table id = "table-data">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Contacted By</th>
+                        <th>Number Contacted</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody id = "tbody-data">
+                    <!-- populated data  -->
+                </tbody>
+            </table>
         </div>
     </body>
     <script src = "./js/call_count_calculator.js"></script>
