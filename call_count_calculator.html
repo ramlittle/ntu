@@ -1,11 +1,40 @@
 <html>
-    <body>
-        <div>
-            <button onclick="calculate()">Calculate</button>
-            <h2>Output</h2>
+
+<body>
+    <section style='display:flex;width:100%;'>
+        <div style='display:flex;flex-direction:column;width:50%;border-right:0.1rem solid grey;'>
+            <h2>Instructions</h2>
+            <span>1. Download your excel data file from nextiva and make the columns simpler</span>
+            <span>2. Remove not needed columns such as, Transfer User, Direction, Answerd Sate</span>
+            <span>3. filter out the records with durations 0s, 1s, 2s, 3s, 4s</span>
+            <span>4. Rename the remaining columns accordingly</span>
+            <pre>
+                Call Type into call_type
+                Name into name
+                Time of call into date_time
+                From into From
+                To into to
+            </pre>
+            <span>5. See Example Excel to process</span>
+            <img src="./imgs/excel_sample.png" />
+            <span>6. Next go to Excel to json converter<a href="https://tableconvert.com/excel-to-json" target='_blank'>click this link</a></span>
+            <span>7. copy the content of your excel and paste it to the textbox of the converter as shown below</span>
+            <img src="./imgs/excel_to_json.png"/>
+            <span>8. Copy the result of the conversion and paste the json content to the text area</span>
+            <img src='./imgs/json_to_textarea.png'/>
+        </div>
+        <div style='width:50%;'>
+            <h2>Input</h2>
+            <span>Paste here the json content to process and press calculate</span>
+            <div>
+            <textarea id="json-content"placeholder='json content here'></textarea>
+            <button id="calculate-button"onclick="calculate()">Calculate</button>
+            <p id="please-wait-message" style='color:red;display:none;'>Please wait for the Output to populate. You may export the result afterwards</p>
+            </div>
             
+            <h2>Output</h2>
             <button onclick="exportToExcel()">Export to Excel</button>
-            <table id = "table-data">
+            <table id="table-data">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -14,11 +43,14 @@
                         <th>Count</th>
                     </tr>
                 </thead>
-                <tbody id = "tbody-data">
+                <tbody id="tbody-data">
                     <!-- populated data  -->
                 </tbody>
             </table>
         </div>
-    </body>
-    <script src = "./js/call_count_calculator.js"></script>
+    </section>
+
+</body>
+<script src="./js/call_count_calculator.js"></script>
+
 </html>

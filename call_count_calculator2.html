@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Count Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+        }
+        .instructions-panel, .app-panel {
+            padding: 2rem;
+        }
+        .instructions-panel {
+            background-color: #fff;
+            border-right: 1px solid #e5e7eb;
+        }
+        .app-panel {
+            flex-grow: 1;
+        }
+        h1, h2 {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 1rem;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .btn-primary {
+            background-color: #10b981;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #059669;
+        }
+        .btn-secondary {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background-color: #2563eb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        thead th {
+            background-color: #f9fafb;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .message-box {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container bg-gray-100">
+
+    <!-- Instructions Panel -->
+    <div class="instructions-panel w-full md:w-1/2">
+        <h2 class="text-2xl">Instructions</h2>
+        <ul class="list-decimal list-inside text-gray-700 space-y-2">
+            <li>Download your Excel data from Nextiva and simplify the columns.</li>
+            <li>Remove unnecessary columns like "Transfer User," "Direction," etc.</li>
+            <li>Filter out records with short durations (0s to 4s).</li>
+            <li>Rename the remaining columns to:
+                <ul class="list-disc list-inside ml-4 mt-2">
+                    <li>`Call Type` to `call_type`</li>
+                    <li>`Name` to `name`</li>
+                    <li>`Time of call` to `date_time`</li>
+                    <li>`From` to `from`</li>
+                    <li>`To` to `to`</li>
+                </ul>
+            </li>
+            <li>Convert the prepared Excel data to JSON format using an online converter (e.g., <a href="https://tableconvert.com/excel-to-json" target="_blank" class="text-blue-500 hover:underline">tableconvert.com</a>).</li>
+            <li>Copy the resulting JSON content and paste it into the text area on the right.</li>
+        </ul>
+    </div>
+
+    <!-- Application Panel -->
+    <div class="app-panel w-full md:w-1/2">
+        <h2 class="text-2xl">Input</h2>
+        <p class="text-gray-700 mb-4">Paste your JSON content here and click "Calculate".</p>
+        <div>
+            <textarea id="json-content" placeholder="Paste JSON content here"></textarea>
+            <button id="calculate-button" onclick="calculate()" class="btn-primary">Calculate</button>
+            <div id="status-message" class="text-sm mt-2 font-semibold hidden"></div>
+        </div>
+        
+        <h2 class="text-2xl mt-8">Output</h2>
+        <button onclick="exportToExcel()" class="btn-secondary mb-4">Export to Excel</button>
+        <table id="table-data">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Contacted By</th>
+                    <th>Number Contacted</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-data">
+                <!-- Populated data goes here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// This is the core logic of the application.
+
+/**
+ * Parses the JSON content from the text area, calculates the call counts,
+ * and populates the results in the HTML table.
+ */
+function calculate() {
+    // Get HTML elements
+    const jsonContentEl = document.querySelector('#json-content');
+    const statusMessageEl = document.querySelector('#status-message');
+    const tableBodyEl = document.querySelector('#tbody-data');
+
+    // Display a loading message and clear previous data
+    statusMessageEl.textContent = "Processing data. Please wait...";
+    statusMessageEl.classList.remove('hidden', 'text-red-500');
+    statusMessageEl.classList.add('text-blue-500', 'block');
+    tableBodyEl.innerHTML = '';
+
+    let records;
+    try {
+        // Attempt to parse the JSON content. This is the crucial step.
+        records = JSON.parse(jsonContentEl.value);
+    } catch (e) {
+        // Handle parsing errors gracefully
+        statusMessageEl.textContent = "Invalid JSON format. Please check your pasted content.";
+        statusMessageEl.classList.remove('text-blue-500');
+        statusMessageEl.classList.add('text-red-500');
+        return; // Stop execution if there's an error
+    }
+
+    // Check if the parsed data is a non-empty array
+    if (!Array.isArray(records) || records.length === 0) {
+        statusMessageEl.textContent = "No data to process. Please paste a valid JSON array.";
+        statusMessageEl.classList.remove('text-blue-500');
+        statusMessageEl.classList.add('text-red-500');
+        return;
+    }
+
+    // Use a Map for efficient data aggregation. 
+    // The key is a composite of date and number to ensure uniqueness.
+    const callCounts = new Map();
+
+    records.forEach(record => {
+        // Safely access properties and handle potential undefined values
+        const dateToCheck = record.date_time ? record.date_time.split(' ')[0] : 'Unknown Date';
+        const contactedBy = record.from || 'Unknown Caller';
+        const numberToCheck = record.to || 'Unknown Number';
+
+        // Create a unique key for each date/number combination
+        const key = `${dateToCheck}_${numberToCheck}`;
+
+        // If the key exists, increment the count. Otherwise, create a new entry.
+        if (callCounts.has(key)) {
+            const currentCount = callCounts.get(key);
+            callCounts.set(key, {
+                ...currentCount,
+                number_of_times: currentCount.number_of_times + 1
+            });
+        } else {
+            callCounts.set(key, {
+                date: dateToCheck,
+                contacted_by: contactedBy,
+                number_contacted: numberToCheck,
+                number_of_times: 1
+            });
+        }
+    });
+
+    // Convert the Map values back to a simple array
+    const finalResult = Array.from(callCounts.values());
+
+    // Populate the HTML table with the final result
+    fillTableResult(finalResult);
+
+    // Hide the status message on success
+    statusMessageEl.classList.add('hidden');
+}
+
+/**
+ * Populates the HTML table with the provided data array.
+ * @param {Array<Object>} result - The array of objects to display in the table.
+ */
+function fillTableResult(result) {
+    const tBodyData = document.querySelector("#tbody-data");
+    // Clear the table body to avoid appending old data
+    tBodyData.innerHTML = ''; 
+
+    result.forEach(row => {
+        const rowData = `
+            <tr class="hover:bg-gray-50">
+                <td>${row.date}</td>
+                <td>${row.contacted_by}</td>
+                <td>${row.number_contacted}</td>
+                <td>${row.number_of_times}</td>
+            </tr>
+        `;
+        tBodyData.insertAdjacentHTML('beforeend', rowData);
+    });
+}
+
+/**
+ * Exports the content of the HTML table to an Excel file.
+ */
+function exportToExcel() {
+    const table = document.getElementById('table-data');
+    const tableHTML = table.outerHTML;
+    const fileName = 'call_count_report.xls';
+    const dataType = 'application/vnd.ms-excel';
+    
+    // Check if the table body is empty. If so, display an error message.
+    const tableBody = document.getElementById('tbody-data');
+    if (tableBody.innerHTML.trim() === '') {
+        const statusMessageEl = document.querySelector('#status-message');
+        statusMessageEl.textContent = "No data to export. Please calculate first.";
+        statusMessageEl.classList.remove('hidden', 'text-blue-500');
+        statusMessageEl.classList.add('text-red-500', 'block');
+        return;
+    }
+
+    const downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+
+    // Use a try-catch to provide better error handling for the export feature
+    try {
+        if (navigator.msSaveOrOpenBlob) {
+            const blob = new Blob(['\ufeff', tableHTML], { type: dataType });
+            navigator.msSaveOrOpenBlob(blob, fileName);
+        } else {
+            downloadLink.href = 'data:' + dataType + ', ' + encodeURIComponent(tableHTML);
+            downloadLink.download = fileName;
+            downloadLink.click();
+        }
+    } catch (e) {
+        // Fallback for any unexpected errors during export
+        console.error("Export failed:", e);
+        const statusMessageEl = document.querySelector('#status-message');
+        statusMessageEl.textContent = "An error occurred during export.";
+        statusMessageEl.classList.remove('hidden', 'text-blue-500');
+        statusMessageEl.classList.add('text-red-500', 'block');
+    } finally {
+        // Clean up the temporary download link
+        document.body.removeChild(downloadLink);
+    }
+}
+</script>
+</body>
+</html>
